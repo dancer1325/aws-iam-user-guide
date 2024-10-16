@@ -70,20 +70,20 @@ For Regions that must be enabled, we activate AWS STS automatically when you ena
 
 ## Writing code to use AWS STS Regions<a name="id_credentials_temp_enable-regions_writing_code"></a>
 
-After you activate a Region, you can direct AWS STS API calls to that Region\. The following Java code snippet demonstrates how to configure an `AWSSecurityTokenService` object to make requests to the Europe \(Ireland\) \(eu\-west\-1\) Region\.
+* requirements
+  * have activated a Region (== previous step)
+    * _Example:_ how to configure an `AWSSecurityTokenService` object / make requests -- to the -- eu-west-1 Region
 
-```
-EndpointConfiguration regionEndpointConfig = new EndpointConfiguration("https://sts.eu-west-1.amazonaws.com", "eu-west-1");
-AWSSecurityTokenService stsRegionalClient = AWSSecurityTokenServiceClientBuilder.standard()
-.withCredentials(credentials)
-.withEndpointConfiguration(regionEndpointConfig)
-.build();
-```
+        ```
+        // "https://sts.eu-west-1.amazonaws.com"    == URL of the endpoint
+        // "eu-west-1"              == AWS Region
+        EndpointConfiguration regionEndpointConfig = new EndpointConfiguration("https://sts.eu-west-1.amazonaws.com", "eu-west-1");
+        AWSSecurityTokenService stsRegionalClient = AWSSecurityTokenServiceClientBuilder.standard()
+        .withCredentials(credentials)
+        .withEndpointConfiguration(regionEndpointConfig)
+        .build();
+        ```
 
-AWS STS recommends that you make calls to a Regional endpoint\. To learn how to manually enable a Region, see [Managing ](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)AWS Regions in the *AWS General Reference*\.
-
-In the example, the first line instantiates an `EndpointConfiguration` object called `regionEndpointConfig`, passing the URL of the endpoint and the AWS Region as the parameters\.
-
-To learn how to set AWS STS regional endpoints using an environment variable for AWS SDKs, see [AWS STS Regionalized endpoints](https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html) in the *AWS SDKs and Tools Reference Guide*\.
-
-For all other language and programming environment combinations, refer to the [documentation for the relevant SDK](https://aws.amazon.com/tools/)\.
+* [how to manually enable a Region](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)
+* [how to set AWS STS regional endpoints -- via -- environment variable / AWS SDKs](https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html)
+  * check [documentation / SDK](https://aws.amazon.com/tools/)
