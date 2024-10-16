@@ -1,12 +1,28 @@
 # Managing AWS STS in an AWS Region<a name="id_credentials_temp_enable-regions"></a>
 
-By default, the AWS Security Token Service \(AWS STS\) is available as a global service, and all AWS STS requests go to a single endpoint at `https://sts.amazonaws.com`\. AWS recommends using Regional AWS STS endpoints instead of the global endpoint to reduce latency, build in redundancy, and increase session token validity\.
-+ **Reduce latency** – By making your AWS STS calls to an endpoint that is geographically closer to your services and applications, you can access AWS STS services with lower latency and better response times\.
-+ **Build in redundancy** – You can add code to your application that switches your AWS STS API calls to a different Region\. This ensures that if the first Region stops responding, your application continues to operate\. This redundancy is not automatic\. You must build the functionality into your code\.
-+ **Increase session token validity** – Session tokens from Regional AWS STS endpoints are valid in all AWS Regions\. Session tokens from the global STS endpoint are valid only in AWS Regions that are enabled by default\. If you intend to enable a new Region for your account, you can use session tokens from Regional AWS STS endpoints\. If you choose to use the global endpoint, you must change the Region compatibility of AWS STS session tokens for the global endpoint\. Doing so ensures that tokens are valid in all AWS Regions\.
+* Regional AWS STS endpoints
+  * recommended (vs global one)
+  * benefits
+    * **Reduce latency**
+      * Reason: 🧠endpoint is geographically -- closer to your -- services and applications🧠
+    * **Build in redundancy**
+      * add code | your application / switches your AWS STS API calls -- to a -- different Region
+        * -> if the first Region stops responding -> your application continues to operate
+    * **Increase session token validity**
+      * Session tokens -- from -- 
+        * Regional AWS STS endpoints
+          * valid | ALL AWS Regions
+          * use cases
+            * enable a new Region | your account 
+        * global STS endpoint
+          * valid | ONLY AWS Regions / are enabled by default
+          * requirement
+            * change the Region compatibility of AWS STS session tokens
+              * Reason: 🧠tokens are valid | ALL AWS Regions 🧠
 
 ## Managing global endpoint session tokens<a name="sts-regions-manage-tokens"></a>
 
+* TODO:
 Most AWS Regions are enabled for operations in all AWS services by default\. Those Regions are automatically activated for use with AWS STS\. Some Regions, such as Asia Pacific \(Hong Kong\), must be manually enabled\. To learn more about enabling and disabling AWS Regions, see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\. When you enable these AWS Regions, they are automatically activated for use with AWS STS\. You cannot activate the AWS STS endpoint for a Region that is disabled\. Tokens that are valid in all AWS Regions include more characters than tokens that are valid in Regions that are enabled by default\. Changing this setting might affect existing systems where you temporarily store tokens\.
 
 You can change this setting using the AWS Management Console, AWS CLI, or AWS API\.
@@ -71,17 +87,3 @@ In the example, the first line instantiates an `EndpointConfiguration` object ca
 To learn how to set AWS STS regional endpoints using an environment variable for AWS SDKs, see [AWS STS Regionalized endpoints](https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html) in the *AWS SDKs and Tools Reference Guide*\.
 
 For all other language and programming environment combinations, refer to the [documentation for the relevant SDK](https://aws.amazon.com/tools/)\.
-
-## Regions and endpoints<a name="id_credentials_region-endpoints"></a>
-
-The following table lists the Regions and their endpoints\. It indicates which ones are activated by default and which ones you can activate or deactivate\.
-
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
-
-¹You must [enable the Region](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) to use it\. This automatically activates AWS STS\. You cannot manually activate or deactivate AWS STS in these Regions\.
-
-²To use AWS in China, you need an account and credentials specific to AWS in China\.
-
-## AWS CloudTrail and Regional endpoints<a name="sts-regions-cloudtrail"></a>
-
-Calls to Regional endpoints, such as `us-east-2.amazonaws.com`, are logged in AWS CloudTrail the same as any call to a Regional service\. Calls to the global endpoint, `sts.amazonaws.com`, are logged as calls to a global service\. For more information, see [Logging IAM and AWS STS API calls with AWS CloudTrail](cloudtrail-integration.md)\.
