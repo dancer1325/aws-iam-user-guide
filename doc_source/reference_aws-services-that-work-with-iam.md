@@ -1,14 +1,31 @@
 # AWS services that work with IAM<a name="reference_aws-services-that-work-with-iam"></a>
 
-The AWS services listed below are grouped by their [AWS product categories](https://aws.amazon.com/products/) and include information about what IAM features they support:
-+ **Service** – You can choose the name of a service to view the AWS documentation about IAM authorization and access for that service\.
-+ **Actions** – You can specify individual actions in a policy\. If the service does not support this feature, then **All actions** is selected in the [visual editor](access_policies_create-console.md#access_policies_create-visual-editor)\. In a JSON policy document, you must use `*` in the `Action` element\. For a list of actions in each service, see [Actions, Resources, and Condition Keys for AWS Services](reference_policies_actions-resources-contextkeys.html)\.
-+ **Resource\-level permissions** – You can use [ARNs](reference_identifiers.md#identifiers-arns) to specify individual resources in the policy\. If the service does not support this feature, then **All resources** is chosen in the [policy visual editor](access_policies_create-console.md#access_policies_create-visual-editor)\. In a JSON policy document, you must use `*` in the `Resource` element\. Some actions, such as `List*` actions, do not support specifying an ARN because they are designed to return multiple resources\. If a service supports this feature for some resources but not others, it is indicated by **Partial** in the table\. See the documentation for that service for more information\.
-+ **Resource\-based policies** – You can attach resource\-based policies to a resource within the service\. Resource\-based policies include a `Principal` element to specify which IAM identities can access that resource\. For more information, see [Identity\-based policies and resource\-based policies](access_policies_identity-vs-resource.md)\.
-+ **ABAC \(authorization based on tags\)** – To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `aws:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. If a service supports all three condition keys for every resource type, then the value is **Yes** for the service\. If a service supports all three condition keys for only some resource types, then the value is **Partial**\. For more information about defining permissions based on attributes such as tags, see [What is ABAC for AWS?](introduction_attribute-based-access-control.md)\. To view a tutorial with steps for setting up ABAC, see [Use attribute\-based access control \(ABAC\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html)\.
-+ **Temporary credentials** – You can use short\-term credentials that you obtain when you sign in using IAM Identity Center, switch roles in the console, or that you generate using AWS STS in the AWS CLI or AWS API\. You can access services with a **No** value only while using your long\-term IAM user credentials\. This includes a user name and password or your user access keys\. For more information, see [Temporary security credentials in IAM](id_credentials_temp.md)\. 
-+ **Service\-linked roles** – A [service\-linked role](id_roles_terms-and-concepts.md#iam-term-service-linked-role) is a special type of service role that gives the service permission to access resources in other services on your behalf\. Choose the `Yes` link to see the documentation for services that support these roles\. This column does not indicate if the service uses standard service roles\. For more information, see [Using service\-linked roles](using-service-linked-roles.md)\.
-+ **More information** – If a service doesn't fully support a feature, you can review the footnotes for an entry to view the limitations and links to related information\.
+* AWS services / 
+  * grouped by their [AWS product categories](https://aws.amazon.com/products/)
+  * supported IAM features
+* terms | below table
+  * **Actions** 
+    * == possible to specify individual actions | policy
+    * if the service does NOT support it -> **ALL actions** is selected | [visual editor](access_policies_create-console.md#access_policies_create-visual-editor)
+    * `*` | JSON policy document's `Action` element
+    * SOME actions (_Example:_ `List*`) do NOT support specifying an ARN
+      * Reason: 🧠 they are designed to return multiple resources 🧠
+    * [list of actions / EACH service](reference_policies_actions-resources-contextkeys.html)
+  * **Resource\-level permissions**
+    * == specify individual resources | policy
+      * use [ARNs](reference_identifiers.md#identifiers-arns) 
+    * if the service does NOT support it -> **ALL resources** is chosen | [policy visual editor](access_policies_create-console.md#access_policies_create-visual-editor)
+    * `*` | JSON policy document's `Resource` element
+    * **Partial**
+      * == service / supports this feature | SOME resources BUT NOT others
+  * **Resource\-based policies**
+    * TODO: – You can attach resource\-based policies to a resource within the service\.
+    * Resource\-based policies include a `Principal` element to specify which IAM identities can access that resource\.
+    * [Identity\-based policies and resource\-based policies](access_policies_identity-vs-resource.md)
+  * **ABAC \(authorization based on tags\)** – To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `aws:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. If a service supports all three condition keys for every resource type, then the value is **Yes** for the service\. If a service supports all three condition keys for only some resource types, then the value is **Partial**\. For more information about defining permissions based on attributes such as tags, see [What is ABAC for AWS?](introduction_attribute-based-access-control.md)\. To view a tutorial with steps for setting up ABAC, see [Use attribute\-based access control \(ABAC\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html)\.
+  * **Temporary credentials** – You can use short\-term credentials that you obtain when you sign in using IAM Identity Center, switch roles in the console, or that you generate using AWS STS in the AWS CLI or AWS API\. You can access services with a **No** value only while using your long\-term IAM user credentials\. This includes a user name and password or your user access keys\. For more information, see [Temporary security credentials in IAM](id_credentials_temp.md)\.
+  * **Service\-linked roles** – A [service\-linked role](id_roles_terms-and-concepts.md#iam-term-service-linked-role) is a special type of service role that gives the service permission to access resources in other services on your behalf\. Choose the `Yes` link to see the documentation for services that support these roles\. This column does not indicate if the service uses standard service roles\. For more information, see [Using service\-linked roles](using-service-linked-roles.md)\.
+  * **More information** – If a service doesn't fully support a feature, you can review the footnotes for an entry to view the limitations and links to related information\.
 
 ## Compute services<a name="compute_svcs"></a>
 
