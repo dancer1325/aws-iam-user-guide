@@ -42,7 +42,15 @@ The creation of a trust relationship between an external identity provider and A
 Instead of creating an IAM user, you can use existing identities from AWS Directory Service, your enterprise user directory, or a web identity provider\. These are known as *federated users*\. AWS assigns a role to a federated user when access is requested through an [identity provider](id_roles_providers.md)\. For more information about federated users, see [Federated Users and Roles](introduction_access-management.md#intro-access-roles) in the *IAM User Guide*\.
 
 ****Trust policy****  <a name="term_trust-policy"></a>
-A [JSON policy document](reference_policies_grammar.md) in which you define the principals that you *trust* to assume the role\. A role trust policy is a required [resource\-based policy](access_policies.md#policies_resource-based) that is attached to a role in IAM\. The [principals](reference_policies_elements_principal.md) that you can specify in the trust policy include users, roles, accounts, and services\.
+* := 👀[JSON policy document](reference_policies_grammar.md) / define the principals / you *trust* 👀
+  * --to assume -- the role
+  * allowed [principals](reference_policies_elements_principal.md)
+    * users,
+    * roles,
+    * accounts,
+    * services 
+* role trust policy
+  * == required [resource-based policy](access_policies.md#policies_resource-based) / attached | role in IAM
 
 ****Permissions policy****  <a name="term_policy"></a>
 A permissions document in [JSON](http://www.json.org) format in which you define what actions and resources the role can use\. The document is written according to the rules of the [IAM policy language](reference_policies.md)\.
