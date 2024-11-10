@@ -1,15 +1,16 @@
 # AWS JSON policy elements: Principal<a name="reference_policies_elements_principal"></a>
 
-Use the `Principal` element in a resource\-based JSON policy to specify the principal that is allowed or denied access to a resource\. 
-
-You must use the `Principal` element in [resource\-based policies](access_policies_identity-vs-resource.md)\. Several services support resource\-based policies, including IAM\. The IAM resource\-based policy type is a role trust policy\. In IAM roles, use the `Principal` element in the role trust policy to specify who can assume the role\. For cross\-account access, you must specify the 12\-digit identifier of the trusted account\. To learn whether principals in accounts outside of your zone of trust \(trusted organization or account\) have access to assume your roles, see [What is IAM Access Analyzer?](https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html)\.
-
-**Note**  
-After you create the role, you can change the account to "\*" to allow everyone to assume the role\. If you do this, we strongly recommend that you limit who can access the role through other means, such as a `Condition` element that limits access to only certain IP addresses\. Do not leave your role accessible to everyone\!
-
-Other examples of resources that support resource\-based policies include an Amazon S3 bucket or an AWS KMS key\.
-
-You cannot use the `Principal` element in an identity\-based policy\. Identity\-based policies are permissions policies that you attach to IAM identities \(users, groups, or roles\)\. In those cases, the principal is implicitly the identity where the policy is attached\.
+* uses
+  * 👀| [resource-based JSON policy](access_policies_identity-vs-resource.md) 👀
+    * specify the -- principal / -- has access to a -- resource
+      * allowed or
+      * denied
+    * _Examples:_
+      * _Example1:_ IAM resource-based policy type == [role trust policy](id_roles_terms-and-concepts.md)
+      * _Example2:_ | IAM roles, specify who can assume the role
+    * | cross-account access, -> you MUST specify the 12-digit identifier of the trusted account
+  * ❌NOT possible | [identity-based JSON policy](access_policies_identity-vs-resource.md) ❌
+    * Reason: 🧠principal | identity-based policies, is implicit 🧠
 
 **Topics**
 + [Specifying a principal](#Principal_specifying)
@@ -24,48 +25,60 @@ You cannot use the `Principal` element in an identity\-based policy\. Identity\-
 
 ## Specifying a principal<a name="Principal_specifying"></a>
 
-You specify a principal in the `Principal` element of a resource\-based policy or in condition keys that support principals\.
+* places | principal can be specified
+  * resource-based policy's `Principal` element
+    * allowed principals
+      * AWS account & root user
+      * IAM roles
+      * Role sessions
+      * IAM users
+        * ❌IAM user group NOT valid ❌
+          * Reason: 🧠
+            * groups -- relate to -- permissions (!= authentication)
+            * principals == authenticated IAM entities 🧠
+      * Federated user sessions
+      * AWS services
+      * ALL principals 
+  * condition keys / support principals
 
-You can specify any of the following principals in a policy:
-+ AWS account and root user
-+ IAM roles
-+ Role sessions 
-+ IAM users
-+ Federated user sessions
-+ AWS services
-+ All principals
+* \>=1 principal / EACH principal type is allowed
+  * -- specify via an -- array
+  * if you specify >1 == grant permissions | EACH principal
+    * == logical `OR`
+  * _Example:_ defines permissions for the 123456789012 account OR the 555555555555 account
 
-You cannot identify a user group as a principal in a policy \(such as a resource\-based policy\) because groups relate to permissions, not authentication, and principals are authenticated IAM entities\.
+    ```
+    "Principal" : { 
+    "AWS": [ 
+      "123456789012",
+      "555555555555" 
+      ]
+    }
+    ```
 
-You can specify more than one principal for each of the principal types in following sections using an array\. Arrays can take one or more values\. When you specify more than one principal in an element, you grant permissions to each principal\. This is a logical `OR` and not a logical `AND`, because you authenticate as one principal at a time\. If you include more than one value, use square brackets \(`[` and `]`\) and comma\-delimit each entry for the array\. The following example policy defines permissions for the 123456789012 account or the 555555555555 account\.
-
-```
-"Principal" : { 
-"AWS": [ 
-  "123456789012",
-  "555555555555" 
-  ]
-}
-```
-
-**Note**  
-You cannot use a wildcard to match part of a principal name or ARN\. 
+* 's value
+  * 👀`*` is NOT valid 👀
 
 ## AWS account principals<a name="principal-accounts"></a>
 
-You can specify AWS account identifiers in the `Principal` element of a resource\-based policy or in condition keys that support principals\. This delegates authority to the account\. When you allow access to a different account, an administrator in that account must then grant access to an identity \(IAM user or role\) in that account\. When you specify an AWS account, you can use the account ARN \(arn:aws:iam::*account\-ID*:root\), or a shortened form that consists of the `"AWS":` prefix followed by the account ID\.
+* allows
+  * 👀delegating authority -- to -- another account 👀
+    * == another account's administrator manage the access | that account
+* ways to specify
+  * account ARN
+    * `"arn:aws:iam::accountID:root"`
+      * 👀previous `root` != limit permissions to ONLY root user 👀
+    * _Example:_
+        ```
+        "Principal": { "AWS": "arn:aws:iam::123456789012:root" }
+        ```
+  * shortened form
+    * `"AWS":"accountId"`
+      ```
+      "Principal": { "AWS": "123456789012" }
+      ```
 
-For example, given an account ID of `123456789012`, you can use either of the following methods to specify that account in the `Principal` element:
-
-```
-"Principal": { "AWS": "arn:aws:iam::123456789012:root" }
-```
-
-```
-"Principal": { "AWS": "123456789012" }
-```
-
-The account ARN and the shortened account ID behave the same way\. Both delegate permissions to the account\. Using the account ARN in the `Principal` element does not limit permissions to only the root user of the account\. 
+* TODO: 
 
 **Note**  
 When you save a resource\-based policy that includes the shortened account ID, the service might convert it to the principal ARN\. This does not change the functionality of the policy\.
