@@ -1,6 +1,12 @@
-# Setting an account password policy for IAM users<a name="id_credentials_passwords_account-policy"></a>
+# Setting an account password policy -- for -- IAM users<a name="id_credentials_passwords_account-policy"></a>
 
-You can set a custom password policy on your AWS account to specify complexity requirements and mandatory rotation periods for your IAM users' passwords\. If you don't set a custom password policy, IAM user passwords must meet the default AWS password policy\. For more information, see [Custom password policy options](#password-policy-details)\.
+* custom password policy | your AWS account
+  * settings
+    * complexity requirements
+    * mandatory rotation periods
+* IAM user passwords
+  * requirements == default AWS password policy requirements
+  * see [Custom password policy options](#password-policy-details)
 
 **Topics**
 + [Rules for setting a password policy](#password-policy-rules)
@@ -13,58 +19,82 @@ You can set a custom password policy on your AWS account to specify complexity r
 
 ## Rules for setting a password policy<a name="password-policy-rules"></a>
 
-The IAM password policy does not apply to the AWS account root user password or IAM user access keys\. If a password expires, the IAM user can't sign in to the AWS Management Console but can continue to use their access keys\.
+* IAM password policy
+  * does NOT apply | 
+    * AWS account root user password or
+    * IAM user access keys
+      * 👀-> if a password expires -> IAM user can 👀
+        * NOT sign in | AWS Management Console
+        * use their access keys
+  * if you create or change -> password policy settings
+    * MOST are enforced | next time / users change their passwords
+      * _Example:_ minimum length & character type requirements change
+    * SOME are enforced immediately
+      * _Example:_ set a password expiration period
+        * set a password expiration period of 90 days -> password expires | ALL IAM users / password is older than 90 days
+  * recommendations
+    * strong password policy + MFA
+      * see [Using multi\-factor authentication \(MFA\) in AWS](id_credentials_mfa.md)
 
-When you create or change a password policy, most of the password policy settings are enforced the next time your users change their passwords\. However, some of the settings are enforced immediately\. For example: 
-+ When the minimum length and character type requirements change, these settings are enforced the next time that your users change their passwords\. Users are not forced to change their existing passwords, even if the existing passwords do not adhere to the updated password policy\.
-+ When you set a password expiration period, the expiration period is enforced immediately\. For example, assume that you set a password expiration period of 90 days\. In that case, the password expires for all IAM users whose existing password is older than 90 days\. Those users are required to change their password the next time that they sign in\.
+* "lockout policy"
+  * == policy / lock a user out of the account
+  * 👀NOT possible to create it 👀
 
-You can't create a "lockout policy" to lock a user out of the account after a specified number of failed sign\-in attempts\. For enhanced security, we recommend that you combine a strong password policy with multi\-factor authentication \(MFA\)\. For more information about MFA, see [Using multi\-factor authentication \(MFA\) in AWS](id_credentials_mfa.md)\.
+## Permissions required -- to set a -- password policy<a name="default-policy-permissions-required"></a>
 
-## Permissions required to set a password policy<a name="default-policy-permissions-required"></a>
+* goal
+  * required permissions / IAM entity (user or role) can, about their account password policy
+    * view
+    * edit
 
-You must configure permissions to allow an IAM entity \(user or role\) to view or edit their account password policy\. You can include the following password policy actions in an IAM policy: 
-+ `iam:GetAccountPasswordPolicy` – Allows the entity to view the password policy for their account
-+ `iam:DeleteAccountPasswordPolicy` – Allows the entity to delete the custom password policy for their account and revert to the default password policy
-+ `iam:UpdateAccountPasswordPolicy` – Allows the entity to create or change the custom password policy for their account
+* password policy actions 
+  + `iam:GetAccountPasswordPolicy`
+    + -> entity can view the password policy | their account
+  + `iam:DeleteAccountPasswordPolicy` 
+    + -> entity can
+      + delete the custom password policy | their account
+      + revert -- to the -- default password policy
+  + `iam:UpdateAccountPasswordPolicy`
+    + -> entity can create or change the custom password policy | their account
+  + _Example:_ FULL access to view & edit the account password policy
+    + see [Creating policies using the JSON editor](access_policies_create-console.md#access_policies_create-json-editor)
 
-The following policy allows full access to view and edit the account password policy\. To learn how to create an IAM policy using this example JSON policy document, see [Creating policies using the JSON editor](access_policies_create-console.md#access_policies_create-json-editor)\.
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "FullAccessPasswordPolicy",
-            "Effect": "Allow",
-            "Action": [
-                "iam:GetAccountPasswordPolicy",
-                "iam:DeleteAccountPasswordPolicy",
-                "iam:UpdateAccountPasswordPolicy"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-For information about the permissions required for an IAM user to change their own password, see [Permitting IAM users to change their own passwords](id_credentials_passwords_enable-user-change.md)\.
+    ```
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "FullAccessPasswordPolicy",
+                "Effect": "Allow",
+                "Action": [
+                    "iam:GetAccountPasswordPolicy",
+                    "iam:DeleteAccountPasswordPolicy",
+                    "iam:UpdateAccountPasswordPolicy"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }
+    ```
 
 ## Default password policy<a name="default-policy-details"></a>
 
-If an administrator does not set a custom password policy, IAM user passwords must meet the default AWS password policy\.
+* uses
+  * administrator does NOT set a custom password policy
 
-**Note**  
-AWS is rolling out improvements to the sign\-in process\. One of those improvements is to enforce a more secure password policy for your account\. If your account has been upgraded, you are required to meet the password policy in this section\. If your account has not yet been upgraded, then AWS does not enforce this policy, but highly recommends that you follow its guidelines for a more secure password\.
-
-The default password policy enforces the following conditions:
-+ Minimum password length of 8 characters and a maximum length of 128 characters
-+ Minimum of three of the following mix of character types: uppercase, lowercase, numbers, and non\-alphanumeric character \(`! @ # $ % ^ & * ( ) _ + - = [ ] { } | '`\)
-+ Not be identical to your AWS account name or email address
-+ Never expire password
+* default password policy
+  + password length [8, 128] characters
+  + \>= 3 of the following character types
+    + uppercase,
+    + lowercase,
+    + numbers,
+    + non\-alphanumeric character \(`! @ # $ % ^ & * ( ) _ + - = [ ] { } | '`\)
+  + != your AWS account name or email address
+  + NEVER expire password
 
 ## Custom password policy options<a name="password-policy-details"></a>
 
+* TODO:
 When you configure a custom password policy for your account, you can specify the following conditions:
 + **Password minimum length** – You can specify a minimum of 6 characters and a maximum of 128 characters\.
 + **Password strength** – You can select any of the following check boxes to define the strength of your IAM user passwords:
