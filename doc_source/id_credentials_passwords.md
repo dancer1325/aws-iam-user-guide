@@ -2,11 +2,10 @@
 
 * passwords
   * can be managed by you
-  * uses 
-    * -- for --
-      * AWS account root user
-      * IAM users | your account
-        * -- to access the -- AWS Management Console (❌NOT AWS CLI, Tools for Windows PowerShell, the AWS SDKs or APIs❌) 
+  * uses
+    * AWS account root user
+    * IAM users | your account
+      * -- to access the -- AWS Management Console (❌NOT AWS CLI, Tools for Windows PowerShell, the AWS SDKs or APIs❌) 
 * [access keys](id_credentials_access-keys.md)
   * uses
     * IAM users -- can access -- 
