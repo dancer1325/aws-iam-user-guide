@@ -95,29 +95,80 @@ The AWS account root user is affected by some policy types but not others\. You 
 
 ## Overview of JSON policies<a name="access_policies-json"></a>
 
-Most policies are stored in AWS as JSON documents\. Identity\-based policies and policies used to set permissions boundaries are JSON policy documents that you attach to a user or role\. Resource\-based policies are JSON policy documents that you attach to a resource\. SCPs are JSON policy documents with restricted syntax that you attach to an AWS Organizations organizational unit \(OU\)\. ACLs are also attached to a resource, but you must use a different syntax\. Session policies are JSON policies that you provide when you assume a role or federated user session\.
+* MOST policies 
+  * stored in AWS -- as -- JSON documents
+* Identity-based policies & policies / -- used to set -- permissions boundaries
+  * == JSON policy documents / you attach |
+    * user or
+    * role
+* Resource-based policies
+  * == JSON policy documents / you attach | resource
+* SCPs
+  * == JSON policy documents / 
+    * restricted syntax
+    * you attach | AWS Organizations Organizational Unit
+* ACLs
+  * are attached | resource
+  * syntax != Resource-based policies syntax
+* Session policies
+  * == JSON policies / you provide | you assume a
+    * role or
+    * federated user session
 
-It is not necessary for you to understand the JSON syntax\. You can use the visual editor in the AWS Management Console to create and edit customer managed policies without ever using JSON\. However, if you use inline policies for groups or complex policies, you must still create and edit those policies in the JSON editor using the console\. For more information about using the visual editor, see [Creating IAM policies](access_policies_create.md) and [Editing IAM policies](access_policies_manage-edit.md)\.
+* visual editor
+  * skip the need to use JSON
+  * see
+    * [Creating IAM policies](access_policies_create.md)
+    * [Editing IAM policies](access_policies_manage-edit.md)
 
- When you create or edit a JSON policy, IAM can perform policy validation to help you create an effective policy\. IAM identifies JSON syntax errors, while IAM Access Analyzer provides additional policy checks with recommendations to help you further refine your policies\. To learn more about policy validation, see [Validating IAM policies](access_policies_policy-validator.md)\. To learn more about IAM Access Analyzer policy checks and actionable recommendations, see [ IAM Access Analyzer policy validation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-validation.html)\. 
+ * IAM Access Analyzer policy
+   * perform policy validation | create or edit a JSON policy
+   * make recommendations about your policies 
+   * see
+     * [Validating IAM policies](access_policies_policy-validator.md)
+     * [ IAM Access Analyzer policy validation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-validation.html) 
 
 ### JSON policy document structure<a name="policies-introduction"></a>
 
-As illustrated in the following figure, a JSON policy document includes these elements:
-+ Optional policy\-wide information at the top of the document
-+ One or more individual statements**
+* 👀== top-level elements + statements 👀
+  + top-level elements
+    + optional
+    + policy-wide information
+  + statements
+    + allowed
+      + \>= 1 individual statements
+        + if a there are >1 statements -> AWS applies a logical `OR` | evaluating them
+    + 👀== information about 1! permission 👀
+    + == container for the following elements
+    + see [IAM JSON policy elements: Statement](reference_policies_elements_statement.md)
+    + 👀 == series of elements 👀
+      + **Version**
+        + == version of the policy language
+        + see [IAM JSON policy elements: Version](reference_policies_elements_version.md)
+      + **Sid**
+        + Optional
+        + == statement ID / differentiate the statements
+        + see [IAM JSON policy elements: Sid](reference_policies_elements_sid.md)
+      + **Effect**
+        + required
+        + valid values
+          + `Allow`
+          + `Deny` 
+        + see [IAM JSON policy elements: Effect](reference_policies_elements_effect.md)
+      + **Principal**
+        + required | SOME circumstances
+        + can be applied ONLY | resource-based policies
+        + see [IAM JSON policy elements: Principal](reference_policies_elements_principal.md)
+          
 
-Each statement includes information about a single permission\. If a policy includes multiple statements, AWS applies a logical `OR` across the statements when evaluating them\. If multiple policies apply to a request, AWS applies a logical `OR` across all of those policies when evaluating them\. 
+  ![\[JSON policy document structure\]](http://docs.aws.amazon.com/IAM/latest/UserGuide/images/AccessPolicyLanguage_General_Policy_Structure.diagram.png)
 
-![\[JSON policy document structure\]](http://docs.aws.amazon.com/IAM/latest/UserGuide/images/AccessPolicyLanguage_General_Policy_Structure.diagram.png)
+* if >1 policies apply to a request -> AWS applies a logical `OR` | ALL of those policies | evaluating them
 
-The information in a statement is contained within a series of elements\.
-+ **Version** – Specify the version of the policy language that you want to use\. We recommend that you use the latest `2012-10-17` version\. For more information, see [IAM JSON policy elements: Version](reference_policies_elements_version.md)
-+ **Statement** – Use this main policy element as a container for the following elements\. You can include more than one statement in a policy\.
-+ **Sid** \(Optional\) – Include an optional statement ID to differentiate between your statements\.
-+ **Effect** – Use `Allow` or `Deny` to indicate whether the policy allows or denies access\.
-+ **Principal** \(Required in only some circumstances\) – If you create a resource\-based policy, you must indicate the account, user, role, or federated user to which you would like to allow or deny access\. If you are creating an IAM permissions policy to attach to a user or role, you cannot include this element\. The principal is implied as that user or role\.
-+ **Action** – Include a list of actions that the policy allows or denies\.
+
+
+* TODO:
++ **Action** – Include a list of actions that the policy allows or denies\. 
 + **Resource** \(Required in only some circumstances\) – If you create an IAM permissions policy, you must specify a list of resources to which the actions apply\. If you create a resource\-based policy, this element is optional\. If you do not include this element, then the resource to which the action applies is the resource to which the policy is attached\.
 + **Condition** \(Optional\) – Specify the circumstances under which the policy grants permission\.
 
