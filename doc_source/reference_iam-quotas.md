@@ -1,30 +1,84 @@
 # IAM and AWS STS quotas, name requirements, and character limits<a name="reference_iam-quotas"></a>
 
-AWS Identity and Access Management \(IAM\) and AWS Security Token Service \(STS\) have quotas that limit the size of objects\. This affects how you name an object, the number of objects you can create, and the number of characters you can use when you pass an object\. 
-
-
-
-**Note**  
-To get account\-level information about IAM usage and quotas, use the [GetAccountSummary](https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetAccountSummary.html) API operation or the [get\-account\-summary](https://docs.aws.amazon.com/cli/latest/reference/iam/get-account-summary.html) AWS CLI command\. 
+* quotas
+  * exist |
+    * AWS IAM
+    * AWS STS
+  * allows
+    * 👀limit the size of objects(resources, actions & items) 👀 -> affect to
+      * name an object,
+      * number of objects / you can create
+      * number of characters / you can use | pass an object
+  * ways to get information about IAM usage and quotas / account-level
+    * [GetAccountSummary](https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetAccountSummary.html) API operation or
+    * [get\-account\-summary](https://docs.aws.amazon.com/cli/latest/reference/iam/get-account-summary.html) AWS CLI command 
 
 ## IAM name requirements<a name="reference_iam-quotas-names"></a>
 
-IAM names have the following requirements and restrictions:
-+ Policy documents can contain only the following Unicode characters: horizontal tab \(U\+0009\), linefeed \(U\+000A\), carriage return \(U\+000D\), and characters in the range U\+0020 to U\+00FF\. 
-+ Names of users, groups, roles, policies, instance profiles, and server certificates must be alphanumeric, including the following common characters: plus \(\+\), equal \(=\), comma \(,\), period \(\.\), at \(@\), underscore \(\_\), and hyphen \(\-\)\.
-+ Names of users, groups, roles, and instance profiles must be unique within the account\. They are not distinguished by case, for example, you cannot create groups named both **ADMINS** and **admins**\.
-+ The external ID value that a third party uses to assume a role must have a minimum of 2 characters and a maximum of 1,224 characters\. The value must be alphanumeric without white space\. It can also include the following symbols: plus \(\+\), equal \(=\), comma \(,\), period \(\.\), at \(@\), colon \(:\), forward slash \(/\), and hyphen \(\-\)\. For more information about the external ID, see [How to use an external ID when granting access to your AWS resources to a third party](id_roles_create_for-user_externalid.md)\.
-+ Path names must begin and end with a forward slash \(/\)\.
-+ Policy names for [inline policies](access_policies_managed-vs-inline.md) must be unique to the user, group, or role they are embedded in\. The names can contain any Basic Latin \(ASCII\) characters minus the following reserved characters: backward slash \(\\\), forward slash \(/\), asterisk \(\*\), question mark \(?\), and white space\. These characters are reserved according to [RFC 3986, section 2\.2](https://datatracker.ietf.org/doc/html/rfc3986#section-2.2)\. 
-+ User passwords \(login profiles\) can contain any Basic Latin \(ASCII\) characters\.
-+ AWS account ID aliases must be unique across AWS products, and must be alphanumeric following DNS naming conventions\. An alias must be lowercase, it must not start or end with a hyphen, it cannot contain two consecutive hyphens, and it cannot be a 12\-digit number\. 
-
-For a list of Basic Latin \(ASCII\) characters, go to the [Library of Congress Basic Latin \(ASCII\) Code Table](http://lcweb2.loc.gov/diglib/codetables/42.html)\. 
++ Policy documents allowed Unicode characters
+  + horizontal tab \(U\+0009\),
+  + linefeed \(U\+000A\), 
+  + carriage return \(U\+000D\),
+  + characters | [U\+0020, U\+00FF] 
++ Names of users, groups, roles, policies, instance profiles, and server certificates -- MUST be --
+  + alphanumeric,
+  + plus \(\+\),
+  + equal \(=\), 
+  + comma \(,\), 
+  + period \(\.\),
+  + at \(@\), 
+  + underscore \(\_\),
+  + hyphen \(\-\)
++ Names of users, groups, roles, and instance profiles are UNIQUE | account / NOT distinguished by case
+  + _Example:_ NOT allowed, to create groups named both **ADMINS** and **admins**
++ TP's external ID value (-- to assume a -- role) 
+  + length == [2, 1,224] characters
+  + allowed characters
+    + alphanumeric / WITHOUT white space
+    + symbols
+      + plus \(\+\),
+      + equal \(=\), 
+      + comma \(,\), 
+      + period \(\.\),
+      + at \(@\), 
+      + colon \(:\),
+      + forward slash \(/\), 
+      + hyphen \(\-\)\
+  + see [How to use an external ID when granting access to your AWS resources to a third party](id_roles_create_for-user_externalid.md)\.
++ Path names
+  + begin & end with a forward slash \(/\)
++ [inline policies](access_policies_managed-vs-inline.md) names
+  + unique / user, group, or role they are embedded in
+  + allowed characters
+    + ANY Basic Latin \(ASCII\) characters minus (Reason: 🧠reserved -- according to -- [RFC 3986, section 2\.2](https://datatracker.ietf.org/doc/html/rfc3986#section-2.2)🧠)
+      + backward slash \(\\\),
+      + forward slash \(/\),
+      + asterisk \(\*\), 
+      + question mark \(?\),
+      + white space
++ User passwords \(login profiles\) 
+  + ANY Basic Latin \(ASCII\) characters
+    + see [Library of Congress Basic Latin \(ASCII\) Code Table](http://lcweb2.loc.gov/diglib/codetables/42.html)
++ AWS account ID aliases
+  + unique / ACROSS AWS products,
+  + alphanumeric / follow DNS naming conventions
+  + lowercase
+  + NOT start or end with a hyphen,
+  + can NOT
+    + contain 2 consecutive hyphens,
+    + be a 12\-digit number
 
 ## IAM object quotas<a name="reference_iam-quotas-entities"></a>
 
-Quotas, also referred to as limits in AWS, are the maximum values for the resources, actions, and items in your AWS account\. Use Service Quotas to manage your IAM quotas\. You can request an increase to default quotas for adjustable IAM quotas\. Requests up to the [maximum quota](#autoapproved) are automatically approved and are completed within a few minutes\.
-
+* Service Quotas
+  * allows
+    * manage your IAM quotas
+* | adjustable IAM quotas
+  * you can request an increase -- to -- default quotas
+    * see [maximum quota](#autoapproved)
+    * automatically approved
+    * completed | few minutes
+    * TODO:
 To request a quota increase, sign in to the AWS Management Console and open the Service Quotas console at [https://console\.aws\.amazon\.com/servicequotas/](https://console.aws.amazon.com/servicequotas/)\. In the navigation pane, choose **AWS services**\. On the navigation bar, choose the **US East \(N\. Virginia\)** Region\. Then search for **IAM**\. Choose **AWS Identity and Access Management \(IAM\)**, choose a quota, and follow the directions to request a quota increase\. For more information, see [Requesting a Quota Increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\.
 
 The following quotas are adjustable\.
