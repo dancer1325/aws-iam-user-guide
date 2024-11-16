@@ -74,74 +74,75 @@
   * allows
     * manage your IAM quotas
 * | adjustable IAM quotas
-  * you can request an increase -- to -- default quotas
+  * 👀you can request an increase -- to -- default quotas 👀
     * see [maximum quota](#autoapproved)
     * automatically approved
     * completed | few minutes
-    * TODO:
-To request a quota increase, sign in to the AWS Management Console and open the Service Quotas console at [https://console\.aws\.amazon\.com/servicequotas/](https://console.aws.amazon.com/servicequotas/)\. In the navigation pane, choose **AWS services**\. On the navigation bar, choose the **US East \(N\. Virginia\)** Region\. Then search for **IAM**\. Choose **AWS Identity and Access Management \(IAM\)**, choose a quota, and follow the directions to request a quota increase\. For more information, see [Requesting a Quota Increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\.
+    * steps -- see [Requesting a Quota Increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) -- 
+      * sign in | AWS Management Console
+      * open the Service Quotas console 
+      * | navigation pane, choose **AWS services**
+      * | navigation bar, choose the **US East \(N\. Virginia\)** Region
+      * search for **IAM**
+      * Choose **AWS IAM**,
+      * choose a quota,
+      * follow the directions -- to request a -- quota increase  
+  * list of adjustable IAM quotas  
 
-The following quotas are adjustable\.
+    | Resource | Default quota | Maximum quota | 
+    | --- | --- | --- | 
+    | Customer managed policies in an AWS account | 1500 | 5000 | 
+    | Groups in an AWS account | 300 | 500 | 
+    | Instance profiles in an AWS account | 1000 | 5000 | 
+    | Managed policies attached to an IAM role | 10 | 20 | 
+    | Managed policies attached to an IAM user | 10 | 20 | 
+    | Role trust policy length | 2048 characters | 4096 characters | 
+    | Roles in an AWS account | 1000 | 5000 | 
+    | Server certificates stored in an AWS account | 20 | 1000 | 
+    | Virtual MFA devices \(assigned or unassigned\) in an AWS account | Equal to the user quota for the account | Not applicable | 
 
+* NOT adjustable IAM quotas
+  * list  
 
-**Default quotas for IAM entities**  
-
-| Resource | Default quota | Maximum quota | 
-| --- | --- | --- | 
-| Customer managed policies in an AWS account | 1500 | 5000 | 
-| Groups in an AWS account | 300 | 500 | 
-| Instance profiles in an AWS account | 1000 | 5000 | 
-| Managed policies attached to an IAM role | 10 | 20 | 
-| Managed policies attached to an IAM user | 10 | 20 | 
-| Role trust policy length | 2048 characters | 4096 characters | 
-| Roles in an AWS account | 1000 | 5000 | 
-| Server certificates stored in an AWS account | 20 | 1000 | 
-| Virtual MFA devices \(assigned or unassigned\) in an AWS account | Equal to the user quota for the account | Not applicable | 
-
-You cannot request an increase for the following quotas\.
-
-
-**Quotas for IAM entities**  
-
-| Resource | Quota | 
-| --- | --- | 
-| Access keys assigned to an IAM user | 2 | 
-| Access keys assigned to the AWS account root user | 2 | 
-| Aliases for an AWS account | 1 | 
-| Groups an IAM user can be a member of | 10 | 
-| IAM users in a group | Equal to the user quota for the account | 
-| Identity providers \(IdPs\) associated with an IAM SAML provider object | 10 | 
-| Keys per SAML provider | 10 | 
-| Login profiles for an IAM user | 1 | 
-| Managed policies attached to an IAM group | 10 | 
-| OpenId Connect identity providers per AWS account | 100 | 
-| Permissions boundaries for an IAM user | 1 | 
-| Permissions boundaries for an IAM role | 1 | 
-| MFA devices in use by an IAM user | 8 | 
-| MFA devices in use by the AWS account root user | 8 | 
-| Roles in an instance profile | 1 | 
-| SAML providers in an AWS account | 100 | 
-| Signing certificates assigned to an IAM user | 2 | 
-| SSH public keys assigned to an IAM user | 5 | 
-| Tags that can be attached to a customer managed policy | 50 | 
-| Tags that can be attached to a SAML identity provider | 50 | 
-| Tags that can be attached to a server certificate | 50 | 
-| Tags that can be attached to a virtual MFA device | 50 | 
-| Tags that can be attached to an instance profile | 50 | 
-| Tags that can be attached to an IAM role | 50 | 
-| Tags that can be attached to an IAM user | 50 | 
-| Tags that can be attached to an Open ID Connect \(OIDC\) identity provider  | 50 | 
-| Users in an AWS account | 5000 \(If you need to add a large number of users, consider using [temporary security credentials](id_credentials_temp.md)\.\) | 
-| Versions of a managed policy that can be stored | 5 | 
+    | Resource | Quota | 
+    | --- | --- | 
+    | Access keys assigned to an IAM user | 2 | 
+    | Access keys assigned to the AWS account root user | 2 | 
+    | Aliases for an AWS account | 1 | 
+    | Groups an IAM user can be a member of | 10 | 
+    | IAM users in a group | Equal to the user quota for the account | 
+    | Identity providers \(IdPs\) associated with an IAM SAML provider object | 10 | 
+    | Keys per SAML provider | 10 | 
+    | Login profiles for an IAM user | 1 | 
+    | Managed policies attached to an IAM group | 10 | 
+    | OpenId Connect identity providers per AWS account | 100 | 
+    | Permissions boundaries for an IAM user | 1 | 
+    | Permissions boundaries for an IAM role | 1 | 
+    | MFA devices in use by an IAM user | 8 | 
+    | MFA devices in use by the AWS account root user | 8 | 
+    | Roles in an instance profile | 1 | 
+    | SAML providers in an AWS account | 100 | 
+    | Signing certificates assigned to an IAM user | 2 | 
+    | SSH public keys assigned to an IAM user | 5 | 
+    | Tags that can be attached to a customer managed policy | 50 | 
+    | Tags that can be attached to a SAML identity provider | 50 | 
+    | Tags that can be attached to a server certificate | 50 | 
+    | Tags that can be attached to a virtual MFA device | 50 | 
+    | Tags that can be attached to an instance profile | 50 | 
+    | Tags that can be attached to an IAM role | 50 | 
+    | Tags that can be attached to an IAM user | 50 | 
+    | Tags that can be attached to an Open ID Connect \(OIDC\) identity provider  | 50 | 
+    | Users in an AWS account | 5000 \(If you need to add a large number of users, consider using [temporary security credentials](id_credentials_temp.md)\.\) | 
+    | Versions of a managed policy that can be stored | 5 | 
 
 ## IAM Access Analyzer quotas<a name="reference_access-analyzer-quotas"></a>
 
-For IAM Access Analyzer quotas, see [IAM Access Analyzer Quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#access-analyzer-quotas)\.
+* see [IAM Access Analyzer Quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#access-analyzer-quotas)
 
 ## IAM and STS character limits<a name="reference_iam-quotas-entity-length"></a>
 
-The following are the maximum character counts and size limits for IAM and AWS STS\. You cannot request an increase for the following limits\.
-
+* MAXIMUM character counts and size limits | IAM and AWS STS
+  * NOT allowed request an increase
 
 | Description | Limit | 
 | --- | --- | 
