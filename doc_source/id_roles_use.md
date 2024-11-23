@@ -1,14 +1,22 @@
 # Using IAM roles<a name="id_roles_use"></a>
 
-Before a user, application, or service can use a role that you created, you must grant permissions to switch to the role\. You can use any policy attached to a groups or to the user to grant the necessary permissions\. This section describes how to grant users permission to use a role\. It also explains how the user can switch to a role from the AWS Management Console, the Tools for Windows PowerShell, the AWS Command Line Interface \(AWS CLI\) and the [https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) API\.
+* goal
+  * how to grant users permission -- to use a -- role
+  * how the user -- can switch to a -- role |
+    * AWS Management Console,
+    * Tools for Windows PowerShell,
+    * AWS CLI
+    * [API_AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html)
 
-**Important**  
-When you create a role programmatically instead of in the IAM console, you have an option to add a `Path` of up to 512 characters in addition to the `RoleName`, which can be up to 64 characters long\. However, if you intend to use a role with the **Switch Role** feature in the AWS Management Console, then the combined `Path` and `RoleName` cannot exceed 64 characters\.
-
-You can switch roles from the AWS Management Console\. You can assume a role by calling an AWS CLI or API operation or by using a custom URL\. The method that you use determines who can assume the role and how long the role session can last\. When using `AssumeRole*` API operations, the IAM role that you assume is the resource\. The user or role that calls `AssumeRole*` API operations is the principal\.
-
-
-**Comparing methods for using roles**  
+* if you create a role programmatically
+  * customizable options
+    * `Path`
+      * <= 512 characters 
+      * \+ `RoleName` / 
+        * ONLY `RoleName`'s length <= 64 characters
+        * if you want to use a role with the **Switch Role** feature | AWS Management Console -> BOTH's length < 64 characters
+  
+* TODO: add notes
 
 |  Method of assuming the role |  **Who can assume the role**  | **Method to specify credential lifetime** |  **Credential lifetime \(min \| max \| default\)**  | 
 | --- | --- | --- | --- | 
