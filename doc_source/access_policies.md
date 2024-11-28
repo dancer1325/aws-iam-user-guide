@@ -159,23 +159,29 @@ The AWS account root user is affected by some policy types but not others\. You 
         + required | SOME circumstances
         + can be applied ONLY | resource-based policies
         + see [IAM JSON policy elements: Principal](reference_policies_elements_principal.md)
-          
+      + **Action**
+        + == list of actions / policy
+          + allows or
+          + denies
+        + see [IAM JSON policy elements: Action](reference_policies_elements_action.md)
+      + **Resource**
+        + optional | resource-based policy 
+          + if you do NOT specify -> policy applies | resource / is attached
+        + mandatory | IAM permissions policy
+        + see [IAM JSON policy elements: Resource](reference_policies_elements_resource.md)
+      + **Condition**
+        + Optional
+        + == circumstances | policy -- grants -- permission
+        + see [IAM JSON policy elements: Condition](reference_policies_elements_condition.md)
 
   ![\[JSON policy document structure\]](http://docs.aws.amazon.com/IAM/latest/UserGuide/images/AccessPolicyLanguage_General_Policy_Structure.diagram.png)
 
 * if >1 policies apply to a request -> AWS applies a logical `OR` | ALL of those policies | evaluating them
-
-
-
-* TODO:
-+ **Action** – Include a list of actions that the policy allows or denies\. 
-+ **Resource** \(Required in only some circumstances\) – If you create an IAM permissions policy, you must specify a list of resources to which the actions apply\. If you create a resource\-based policy, this element is optional\. If you do not include this element, then the resource to which the action applies is the resource to which the policy is attached\.
-+ **Condition** \(Optional\) – Specify the circumstances under which the policy grants permission\.
-
-To learn about these and other more advanced policy elements, see [IAM JSON policy elements reference](reference_policies_elements.md)\. 
+* see [IAM JSON policy elements reference](reference_policies_elements.md) 
 
 ### Multiple statements and multiple policies<a name="policies-syntax-multiples"></a>
 
+* TODO:
 If you want to define more than one permission for an entity \(user or role\), you can use multiple statements in a single policy\. You can also attach multiple policies\. If you try to define multiple permissions in a single statement, your policy might not grant the access that you expect\. We recommend that you break up policies by resource type\. 
 
 Because of the [limited size of policies](reference_iam-quotas.md), it might be necessary to use multiple policies for more complex permissions\. It's also a good idea to create functional groupings of permissions in a separate customer managed policy\. For example, Create one policy for IAM user management, one for self\-management, and another policy for S3 bucket management\. Regardless of the combination of multiple statements and multiple policies, AWS [evaluates](reference_policies_evaluation-logic.md) your policies the same way\.
