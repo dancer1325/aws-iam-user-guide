@@ -1,15 +1,31 @@
 # How IAM works<a name="intro-structure"></a>
 
-IAM provides the infrastructure necessary to control authentication and authorization for your AWS account\. The IAM infrastructure is illustrated by the following diagram:
+* IAM
+  * provides
+    * infrastructure -- to control, for your AWS account, --
+      * authentication
+      * authorization  
 
-![\[IntroToIAM_Diagram\]](http://docs.aws.amazon.com/IAM/latest/UserGuide/images/intro-diagram _policies_800.png)
+![Intro IAM_Diagram](intro-structure.png)
 
-First, a human user or an application uses their sign\-in credentials to authenticate with AWS\. Authentication is provided by matching the sign\-in credentials to a principal \(an IAM user, federated user, IAM role, or application\) trusted by the AWS account\. 
-
-Next, a request is made to grant the principal access to resources\. Access is granted in response to an authorization request\. For example, when you first sign in to the console and are on the console Home page, you are not accessing a specific service\. When you select a service, the request for authorization is sent to that service and it looks to see if your identity is on the list of authorized users, what policies are being enforced to control the level of access granted, and any other polices that might be in effect\. Authorization requests can be made by principals within your AWS account or from another AWS account that you trust\.
-
-Once authorized, the principal can take action or perform operations on resources in your AWS account\. For example, the principal could launch a new Amazon Elastic Compute Cloud instance, modify IAM group membership, or delete Amazon Simple Storage Service buckets\.
-
+* steps
+  * human user OR application -- via their sign-in credentials authenticate -- AWS
+  * authentication process
+    * sign-in credentials -- are tried to match with a -- principal / trusted by the AWS account
+  * authorization process 
+    * request -- is made to grant the -- principal access to resources
+      * == -- based on -- response -> access is granted
+    * can be requested by 
+      * principals | your AWS account or
+      * another AWS account
+  * if you have access -> can take actions or perform operations
+    * _Example:_ launch EC2 instance, ...
+  * _Example:_ if you sign in | AWS console -> NOT accessing | specific service
+    * if you select a service -> request for authorization -- is sent to that -- service / 
+      * checks if
+        * your identity is | list of authorized users
+        * there are policies / -- control the -- level of access granted
+  
 **Topics**
 + [Terms](#intro-structure-terms)
 + [Principal](#intro-structure-principal)
@@ -21,29 +37,66 @@ Once authorized, the principal can take action or perform operations on resource
 
 ## Terms<a name="intro-structure-terms"></a>
 
-In the previous illustration we used specific terminology to describe how to obtain access to resources\. These IAM terms are commonly used when working with AWS:
 
-IAM Resources  
-The user, group, role, policy, and identity provider objects that are stored in IAM\. As with other AWS services, you can add, edit, and remove resources from IAM\.
+* IAM Resources
+  * available
+    * user,
+    * group,
+    * role,
+    * policy,
+    * identity provider objects / stored | IAM 
+  * actions | them
+    * add,
+    * edit,
+    * remove
 
-IAM Identities  
-The IAM resource objects that are used to identify and group\. You can attach a policy to an IAM identity\. These include users, groups, and roles\.
+* IAM Identities
+  * == IAM resource objects /
+    * allows
+      * identify
+      * group
+    * policy can be attached | them
+    * available
+      * users,
+      * groups,
+      * roles
 
-IAM Entities  
-The IAM resource objects that AWS uses for authentication\. These include IAM users and roles\. 
+* IAM Entities
+  * == IAM resource objects /
+    * AWS -- uses for -- authentication 
+  * available
+    * IAM users
+    * IAM roles 
 
-Principals  
-A person or application that uses the AWS account root user, an IAM user, or an IAM role to sign in and make requests to AWS\. Principals include federated users and assumed roles\.
+* Principals
+  * == person or application / 
+    * AWS account root user, an IAM user, or an IAM role -- use to -- 
+      * sign in | AWS
+      * make requests | AWS 
+  * available
+    * federated users
+    * assumed roles
 
-Human users  
-Also known as *human identities*; the people, administrators, developers, operators, and consumers of your applications\.
+* Human users or *human identities*
+  * == people, administrators, developers, operators, and consumers /
+    * use your applications
 
-Workload  
-A collection of resources and code that delivers business value, such as an application or backend process\. Can include applications, operational tools, and components\.
+* Workload
+  * == resources + code / delivers business value
+    * _Example:_ application or backend process
+  * available
+    * applications,
+    * operational tools,
+    * components
 
 ## Principal<a name="intro-structure-principal"></a>
 
-A *principal* is a human user or workload that can make a request for an action or operation on an AWS resource\. After authentication, the principal can be granted either permanent or temporary credentials to make requests to AWS, depending on the principal type\. IAM users and root user are granted permanent credentials, while roles are granted temporary credentials\. As a [best practice](best-practices.md), we recommend that you require human users and workloads to access AWS resources using temporary credentials\.
+* TODO:
+A *principal* is a human user or workload that can make a request for an action or operation on an AWS resource\.
+ After authentication, the principal can be granted either permanent or temporary credentials to make requests to AWS, depending on the principal type\. 
+ IAM users and root user are granted permanent credentials, while roles are granted temporary credentials\. 
+ As a [best practice](best-practices.md), we recommend that you require human users and workloads to access AWS resources using temporary credentials\.
+\(an IAM user, federated user, IAM role, or application\) 
 
 ## Request<a name="intro-structure-request"></a>
 
