@@ -1,29 +1,31 @@
 # IAM JSON policy elements: Resource<a name="reference_policies_elements_resource"></a>
 
-The `Resource` element specifies the object or objects that the statement covers\. Statements must include either a `Resource` or a `NotResource` element\. You specify a resource using an ARN\. For more information about the format of ARNs, see [IAM ARNs](reference_identifiers.md#identifiers-arns)\.
+* `Resource`
+  * := element / specifies the object or objects / statement covers
+  * Statements -- must include -- 
+    * `Resource` element or
+    * `NotResource` element
+  * == `"Resource": "arnOfTheResource"` OR `"Resource": ["arnOfTheResource1", "arnOfTheResource2", ...]` 
+    * see [IAM ARNs](reference_identifiers.md#identifiers-arns)
+    * `"arnOfTheResource"`
+      * specific / EACH AWS service & own resource
+        * see EACH AWS documentation
+        * 👀SOME services do NOT let specify actions | individual resources👀
+          * == you use `*` | `Resource` element  
+    * _Example1:_ specific Amazon SQS queue
+    
+    ```
+    "Resource": "arn:aws:sqs:us-east-2:account-ID-without-hyphens:queue1"
+    ```
+    * _Example2:_ specific user | AWS account
 
-Each service has its own set of resources\. Although you always use an ARN to specify a resource, the details of the ARN for a resource depend on the service and the resource\. For information about how to specify a resource, refer to the documentation for the service you want to write a statement\.
-
-**Note**  
-Some services do not let you specify actions for individual resources; instead, any actions that you list in the `Action` or `NotAction` element apply to all resources in that service\. In these cases, you use the wildcard `*` in the `Resource` element\. 
-
-The following example refers to a specific Amazon SQS queue\.
-
-```
-"Resource": "arn:aws:sqs:us-east-2:account-ID-without-hyphens:queue1"
-```
-
-The following example refers to the IAM user named Bob in an AWS account\.
-
-**Note**  
-Each IAM user name is unique and case\-insensitive\.
-
-```
-"Resource": "arn:aws:iam::account-ID-without-hyphens:user/Bob"
-```
+    ```
+    "Resource": "arn:aws:iam::account-ID-without-hyphens:user/Bob"
+    ```
 
 ## Using wildcards in resource ARNs<a name="reference_policies_elements_resource_wildcards"></a>
 
+* TODO:
 You can use wildcards as part of the resource ARN\. You can use wildcard characters \(\* and ?\) within ARN segments \(the parts separated by colons\) to represent any combination of characters with an askterisk \(\*\) and any single character with a question mark \(?\)\. You can use multiple \* or ? characters in each segment\.
 
 **Note**  
@@ -70,14 +72,15 @@ DOC-EXAMPLE-BUCKET/1/2/test.jpg
 
 ## Specifying multiple resources<a name="reference_policies_elements_resource_multiple-resources"></a>
 
-You can specify multiple resources\. The following example refers to two DynamoDB tables\.
+* == specify MULTIPLE resources
+* _Example:_ 2 DynamoDB tables
 
-```
-"Resource": [
-    "arn:aws:dynamodb:us-east-2:account-ID-without-hyphens:table/books_table",
-    "arn:aws:dynamodb:us-east-2:account-ID-without-hyphens:table/magazines_table"
-]
-```
+    ```
+    "Resource": [
+        "arn:aws:dynamodb:us-east-2:account-ID-without-hyphens:table/books_table",
+        "arn:aws:dynamodb:us-east-2:account-ID-without-hyphens:table/magazines_table"
+    ]
+    ```
 
 ## Using policy variables in resource ARNs<a name="reference_policies_elements_resource_policy-variables"></a>
 
