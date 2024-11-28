@@ -100,14 +100,33 @@ A *principal* is a human user or workload that can make a request for an action 
 
 ## Request<a name="intro-structure-request"></a>
 
-When a principal tries to use the AWS Management Console, the AWS API, or the AWS CLI, that principal sends a *request* to AWS\. The request includes the following information:
-+ **Actions or operations** – The actions or operations that the principal wants to perform\. This can be an action in the AWS Management Console, or an operation in the AWS CLI or AWS API\.
-+ **Resources** – The AWS resource object upon which the actions or operations are performed\.
-+ **Principal** – The person or application that used an entity \(user or role\) to send the request\. Information about the principal includes the policies that are associated with the entity that the principal used to sign in\. 
-+ **Environment data** – Information about the IP address, user agent, SSL enabled status, or the time of day\.
-+ **Resource data** – Data related to the resource that is being requested\. This can include information such as a DynamoDB table name or a tag on an Amazon EC2 instance\.
+* use cases / principal -- sends a *request* to -- AWS
+  * principal -- tries to use the --
+    * AWS Management Console,
+    * AWS API,
+    * AWS CLI 
+* information / included | request
+  + **Actions or operations**
+    + == those ones / principal wants to perform
+  + **Resources**
+    + == those ones | perform the actions or operations
+  + **Principal**
+    + == that one / -- send the -- request 
+      + _Exmaple:_ principal's policies / -- used to -- sign in 
+  + **Environment data**
+    + allowed
+      + IP address,
+      + user agent,
+      + SSL enabled status,
+      + time of day
+  + **Resource data**
+    + == that one / is being requested 
+      + _Example:_ DynamoDB table name OR Amazon EC2 instance's tag
 
-AWS gathers the request information into a *request context*, which is used to evaluate and authorize the request\.
+* *request context*
+  * == ALL request information
+  * uses
+    * evaluate & authorize the request 
 
 ## Authentication<a name="intro-structure-authentication"></a>
 
