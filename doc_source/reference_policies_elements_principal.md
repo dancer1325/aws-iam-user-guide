@@ -247,49 +247,54 @@ The following example shows a policy that can be attached to a service role\. Th
 
 ## All principals<a name="principal-anonymous"></a>
 
-You can use a wildcard \(\*\) to specify all principals in the `Principal` element of a resource\-based policy or in condition keys that support principals\. [Resource\-based policies](access_policies.md#policies_resource-based) *grant* permissions and [condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) are used to limit the conditions of a policy statement\.
+* wildcard (`*`)
+  * uses
+    * specify ALL principals | 
+      * resource-based policy's `Principal` element
+        * == [grant permissions](access_policies.md#policies_resource-based)
+      * condition keys / support principals
+        * == limit the [policy statement's conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) 
+    * ❌NOT possible to match part of a❌ 
+      * principal name or
+      * ARN
+  * recommendations
+    * 👀NOT use | resource-based policy / `Allow` effect 👀
+      * EXCEPT TO, you -- intend to -- grant public or anonymous access
 
-**Important**  
-We strongly recommend that you do not use a wildcard \(\*\) in the `Principal` element of a resource\-based policy with an `Allow` effect unless you intend to grant public or anonymous access\. Otherwise, specify intended principals, services, or AWS accounts in the `Principal` element and then further restrict access in the `Condition` element\. This is especially true for IAM role trust policies, because they allow other principals to become a principal in your account\.
+* anonymous users
+  * next elements are EQUIVALENT
 
-For resource\-based policies, using a wildcard \(\*\) with an `Allow` effect grants access to all users, including anonymous users \(public access\)\. For IAM users and role principals within your account, no other permissions are required\. For principals in other accounts, they must also have identity\-based permissions in their account that allow them to access your resource\. This is called [cross\-account access](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html)\.
+    ```
+    "Principal": "*"
+    ```
 
-For anonymous users, the following elements are equivalent:
+    ```
+    "Principal" : { "AWS" : "*" }
+    ```
 
-```
-"Principal": "*"
-```
-
-```
-"Principal" : { "AWS" : "*" }
-```
-
-You cannot use a wildcard to match part of a principal name or ARN\.
-
-The following example shows a resource\-based policy that can be used instead of [`NotPrincipal` With `Deny`](reference_policies_elements_notprincipal.md#specifying-notprincipal) to explicitly deny all principals *except* for the ones specified in the `Condition` element\.
-
-```
-{
-  "Version": "2012-10-17",
-  "Statement": [
+* _Example:_ resource-based policy / alternative to [`NotPrincipal` + `Deny`](reference_policies_elements_notprincipal.md#specifying-notprincipal)
+    ```
     {
-      "Sid": "UsePrincipalArnInsteadOfNotPrincipalWithDeny",
-      "Effect": "Deny",
-      "Action": "s3:*",
-      "Principal": "*",
-      "Resource": [
-        "arn:aws:s3:::BUCKETNAME/*",
-        "arn:aws:s3:::BUCKETNAME"
-      ],
-      "Condition": {
-        "ArnNotEquals": {
-          "aws:PrincipalArn": "arn:aws:iam::444455556666:user/user-name"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "UsePrincipalArnInsteadOfNotPrincipalWithDeny",
+          "Effect": "Deny",
+          "Action": "s3:*",
+          "Principal": "*",
+          "Resource": [
+            "arn:aws:s3:::BUCKETNAME/*",
+            "arn:aws:s3:::BUCKETNAME"
+          ],
+          "Condition": {
+            "ArnNotEquals": {
+              "aws:PrincipalArn": "arn:aws:iam::444455556666:user/user-name"
+            }
+          }
         }
-      }
+      ]
     }
-  ]
-}
-```
+    ```
 
 ## More information<a name="Principal_more-info"></a>
 
