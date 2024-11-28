@@ -62,8 +62,9 @@
 ## AWS account principals<a name="principal-accounts"></a>
 
 * allows
-  * 👀delegating authority -- to -- another account 👀
+  * 👀delegating authority -- to -- another(S) account 👀
     * == another account's administrator manage the access | that account
+    * (S) == several accounts can be specified 
 * ways to specify
   * account ARN
     * `"arn:aws:iam::accountID:root"`
@@ -77,32 +78,30 @@
       ```
       "Principal": { "AWS": "123456789012" }
       ```
+    * 👀ALTHOUGH you use the shortened form, service / related this resource-based policy -- might convert it to the -- long ARN 👀 
+  * specific ways / AWS service
+    * _Example:_ Amazon S3 -- lets you specify a -- [canonical user ID](https://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html#FindingCanonicalId) 
 
-* TODO: 
+    ```
+    "Principal": { "CanonicalUser": "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be" }
+    ```
 
-**Note**  
-When you save a resource\-based policy that includes the shortened account ID, the service might convert it to the principal ARN\. This does not change the functionality of the policy\.
+  * if you specify several -> use an array
+    * _Example:_ specify a principal | S3 bucket policy -- via -- ALL 3 methods
 
-Some AWS services support additional options for specifying an account principal\. For example, Amazon S3 lets you specify a [canonical user ID](https://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html#FindingCanonicalId) using the following format:
-
-```
-"Principal": { "CanonicalUser": "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be" }
-```
-
-You can also specify more than one AWS account, \(or canonical user ID\) as a principal using an array\. For example, you can specify a principal in a bucket policy using all three methods\.
-
-```
-"Principal": { 
-  "AWS": [
-    "arn:aws:iam::123456789012:root",
-    "999999999999"
-  ],
-  "CanonicalUser": "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be"
-}
-```
+    ```
+    "Principal": { 
+      "AWS": [
+        "arn:aws:iam::123456789012:root",
+        "999999999999"
+      ],
+      "CanonicalUser": "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be"
+    }
+    ```
 
 ## IAM role principals<a name="principal-roles"></a>
 
+* TODO:
 You can specify IAM role principal ARNs in the `Principal` element of a resource\-based policy or in condition keys that support principals\. IAM roles are identities\. In IAM, identities are resources to which you can assign permissions\. Roles trust another authenticated identity to assume that role\. This includes a principal in AWS or a user from an external identity provider \(IdP\)\. When a principal or identity assumes a role, they receive temporary security credentials with the assumed role’s permissions\. When they use those session credentials to perform operations in AWS, they become a *role session principal*\. 
 
 IAM roles are identities that exist in IAM\. Roles trust another authenticated identity, such as a principal in AWS or a user from an external identity provider\. When a principal or identity assumes a role, they receive temporary security credentials\. They can then use those credentials as a role session principal to perform operations in AWS\. 
