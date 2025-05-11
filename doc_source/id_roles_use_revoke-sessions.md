@@ -1,7 +1,8 @@
 # Revoking IAM role temporary security credentials<a name="id_roles_use_revoke-sessions"></a>
 
 **Warning**  
-If you follow the steps on this page, all users with current sessions created by assuming the role are denied access to all AWS actions and resources\. This can result in users losing unsaved work\. 
+If you follow the steps on this page, all users with current sessions created by assuming the role are denied access to all AWS actions and resources\. 
+This can result in users losing unsaved work\. 
 
 When you permit users to access the AWS Management Console with a long session duration time \(such as 12 hours\), their temporary credentials do not expire as quickly\. If users inadvertently expose their credentials to an unauthorized third\-party, that party has access for the duration of the session\. However, you can immediately revoke all permissions to the role's credentials issued before a certain point in time if you need to\. All temporary credentials for that role issued before the specified time become invalid\. This forces all users to re\-authenticate and request new credentials\.
 
