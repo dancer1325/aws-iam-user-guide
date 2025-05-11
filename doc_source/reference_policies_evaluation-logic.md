@@ -1,5 +1,12 @@
 # Policy evaluation logic<a name="reference_policies_evaluation-logic"></a>
 
+* TODO:
+For a request to which only permissions policies apply, AWS first checks all policies for a `Deny`\.
+If one exists, then the request is denied\. 
+Then AWS checks for each `Allow`\.
+ If at least one policy statement allows the action in the request, the request is allowed\. 
+ It doesn't matter whether the `Allow` is in the identity\-based policy or the resource\-based policy\.
+
 When a principal tries to use the AWS Management Console, the AWS API, or the AWS CLI, that principal sends a *request* to AWS\. When an AWS service receives the request, AWS completes several steps to determine whether to allow or deny the request\.
 
 1. **Authentication** – AWS first authenticates the principal that makes the request, if necessary\. This step is not necessary for a few services, such as Amazon S3, that allow some requests from anonymous users\.
